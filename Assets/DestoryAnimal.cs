@@ -1,0 +1,19 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class DestoryAnimal : MonoBehaviour {
+
+	public int aliveSeconds;
+
+	// Use this for initialization
+	void Start () {
+		aliveSeconds = (Random.Range(0, 6));
+		Destroy(gameObject, aliveSeconds);
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+
+	}
+}
