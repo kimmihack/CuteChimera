@@ -7,7 +7,7 @@ public class DestoryAnimal : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		aliveSeconds = (Random.Range(0, 6));
+		aliveSeconds = (Random.Range(2, 6));
 		Destroy(gameObject, aliveSeconds);
 	}
 	

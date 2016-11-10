@@ -9,11 +9,15 @@ public class RandomSpawn : MonoBehaviour
 
 	public GameObject spawn;
 
+	public GameObject animalPrefab;
+	public Sprite[] animalSprites;
+
 	// Use this for initialization
 	void Start() 
 	{
 		if (readynow == true) 
 		{
+			StartCoroutine(spawnDelay());
 			spawnAnimal();
 		}
 	}
@@ -31,13 +35,21 @@ public class RandomSpawn : MonoBehaviour
 	void spawnAnimal()
 	{
 		readynow = false;
+		int arrayIdx = Random.Range (0, animalSprites.Length);
+		Sprite animalSprite = animalSprites[arrayIdx];
+		string animalName = animalSprite.name;
+
 		Instantiate (spawn, transform.position, Quaternion.identity);
-		StartCoroutine(waitSeconds());
+		spawn.name = animalName;
+		spawn.GetComponent<SpriteRenderer> ().sprite = animalSprite;
+
+		StartCoroutine(spawnDelay());
 	}
 
-		IEnumerator waitSeconds()
+	    IEnumerator spawnDelay()
 	{
-		yield return new WaitForSeconds(spawnSeconds);
+		int delayTime = Random.Range (5, 12);
+		yield return new WaitForSeconds (delayTime);
 		readynow = true;
 	}
 }
