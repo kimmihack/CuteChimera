@@ -12,14 +12,12 @@ public class RandomSpawn : MonoBehaviour
 	public GameObject animalPrefab;
 	public Sprite[] animalSprites;
 
+
 	// Use this for initialization
 	void Start() 
 	{
-		if (readynow == true) 
-		{
-			StartCoroutine(spawnDelay());
-			spawnAnimal();
-		}
+		StartCoroutine(startSpawnWait());
+		readynow = true;
 	}
 
 	void Update() 
@@ -28,12 +26,31 @@ public class RandomSpawn : MonoBehaviour
 		{
 			spawnAnimal();
 		}
+
 	}
 		
-	// Spawn a new animal every 3 seconds
+	// The Delay at the start of the game
+
+	IEnumerator startSpawnWait()
+	{
+		yield return new WaitForSeconds (spawnSeconds);
+
+	}
+
+	// The Amount of time the animal sprite is on the screen
+
+	IEnumerator spawnDelay()
+	{
+		//int delayTime = Random.Range (4, 10);
+		yield return new WaitForSeconds (spawnSeconds + 3);
+		readynow = true;
+	}
+
+	// Spawn a random animal sprite
 
 	void spawnAnimal()
 	{
+		// Render the Animal Sprite
 		readynow = false;
 		int arrayIdx = Random.Range (0, animalSprites.Length);
 		Sprite animalSprite = animalSprites[arrayIdx];
@@ -44,12 +61,5 @@ public class RandomSpawn : MonoBehaviour
 		spawn.GetComponent<SpriteRenderer> ().sprite = animalSprite;
 
 		StartCoroutine(spawnDelay());
-	}
-
-	    IEnumerator spawnDelay()
-	{
-		int delayTime = Random.Range (5, 12);
-		yield return new WaitForSeconds (delayTime);
-		readynow = true;
 	}
 }
