@@ -4,8 +4,11 @@ using System.Collections;
 public class RandomSpawn : MonoBehaviour 
 {
 
+	public float gameStartDelay;
 	public float spawnSeconds;
 	public bool readynow;
+	public int spawnDelayMin;
+	public int spawnDelayMax;
 
 	public GameObject spawn;
 
@@ -16,8 +19,8 @@ public class RandomSpawn : MonoBehaviour
 	// Use this for initialization
 	void Start() 
 	{
-		StartCoroutine(startSpawnWait());
-		readynow = true;
+		Invoke ("gameStart", gameStartDelay);
+		//StartCoroutine(startSpawnWait());
 	}
 
 	void Update() 
@@ -26,14 +29,14 @@ public class RandomSpawn : MonoBehaviour
 		{
 			spawnAnimal();
 		}
-
 	}
 		
 	// The Delay at the start of the game
 
+
 	IEnumerator startSpawnWait()
 	{
-		yield return new WaitForSeconds (spawnSeconds);
+		yield return new WaitForSeconds (gameStartDelay);
 
 	}
 
@@ -41,8 +44,13 @@ public class RandomSpawn : MonoBehaviour
 
 	IEnumerator spawnDelay()
 	{
-		//int delayTime = Random.Range (4, 10);
-		yield return new WaitForSeconds (spawnSeconds + 3);
+		int delayTime = Random.Range (spawnDelayMin, spawnDelayMax);
+		yield return new WaitForSeconds (spawnSeconds + delayTime);
+		readynow = true;
+	}
+
+	void gameStart() 
+	{
 		readynow = true;
 	}
 
