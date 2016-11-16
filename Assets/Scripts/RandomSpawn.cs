@@ -5,10 +5,12 @@ public class RandomSpawn : MonoBehaviour
 {
 
 	public float gameStartDelay;
-	public float spawnSeconds;
+	public float spawnAliveSeconds;
 	public bool readynow;
 	public int spawnDelayMin;
 	public int spawnDelayMax;
+	public int aliveMin;
+	public int aliveMax;
 
 	public GameObject spawn;
 
@@ -45,13 +47,15 @@ public class RandomSpawn : MonoBehaviour
 	IEnumerator spawnDelay()
 	{
 		int delayTime = Random.Range (spawnDelayMin, spawnDelayMax);
-		yield return new WaitForSeconds (spawnSeconds + delayTime);
+		spawnAliveSeconds = Random.Range (aliveMin, aliveMax);
+		yield return new WaitForSeconds (spawnAliveSeconds + delayTime);
 		readynow = true;
 	}
 
 	void gameStart() 
 	{
-		readynow = true;
+		//readynow = true;
+		StartCoroutine(spawnDelay());
 	}
 
 	// Spawn a random animal sprite

@@ -4,17 +4,25 @@ using System.Collections;
 public class DestroyAnimal : MonoBehaviour {
 
 	public GameObject spawnerObject;
+	public float animalScore;
+	private int newAnimalScore;
 
 	private RandomSpawn randomSpawnAcess;
 	private float randomSpawnSeconds;
 
 	// Use this for initialization
-	void Start () {
-
+	//Accessing the spawnAliveSeconds from RandomSpawn Script
+	void Start () 
+	{
 		randomSpawnAcess = spawnerObject.GetComponent<RandomSpawn>();
-		randomSpawnSeconds = randomSpawnAcess.spawnSeconds;
-		Debug.Log (randomSpawnSeconds);
-
+		randomSpawnSeconds = randomSpawnAcess.spawnAliveSeconds;
 		Destroy (gameObject, randomSpawnSeconds);
+	}
+
+	void OnMouseDown()
+	{ 
+		animalScore++;
+		Debug.Log (animalScore);
+		Destroy(gameObject); 
 	}
 }
