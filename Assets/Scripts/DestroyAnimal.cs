@@ -5,7 +5,6 @@ public class DestroyAnimal : MonoBehaviour {
 
 	public GameObject spawnerObject;
 	public float animalScore;
-	private int newAnimalScore;
 
 	private RandomSpawn randomSpawnAcess;
 	private float randomSpawnSeconds;
@@ -19,10 +18,10 @@ public class DestroyAnimal : MonoBehaviour {
 		Destroy (gameObject, randomSpawnSeconds);
 	}
 
-	void OnMouseDown()
+	void OnMouseUp()
 	{ 
 		animalScore++;
 		Debug.Log (animalScore);
-		Destroy(gameObject); 
+		//Destroy(gameObject); 
 	}
 }
